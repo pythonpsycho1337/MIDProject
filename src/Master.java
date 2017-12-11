@@ -1,15 +1,14 @@
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.net.SocketTimeoutException;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.concurrent.ConcurrentLinkedQueue; //See: https://docs.oracle.com/javase/7/docs/api/java/util/concurrent/ConcurrentLinkedQueue.html
 
 public class Master implements Runnable{
-    private LinkedList<Message> requests;
-    private LinkedList<Worker> workers;
+    private ConcurrentLinkedQueue<Request> requests;
+    private ConcurrentLinkedQueue<Worker> workers;
+
     public Master(){
-        requests = new LinkedList<Message>();
-        workers = new LinkedList<Worker>();
+        requests = new ConcurrentLinkedQueue<Request>();
+        workers = new ConcurrentLinkedQueue<Worker>();
 
         Worker myWorker = new Worker(this);
         workers.add(myWorker);
@@ -20,10 +19,12 @@ public class Master implements Runnable{
     public void run(){
         boolean running = true;
         while(running){
-            Iterator<Message> iterator = requests.iterator();
-            while(iterator.hasNext()){
-                Message M = iterator.next();
 
+            while(!requests.isEmpty()){
+                Request r = requests.poll();
+                while(workers.isEmpty());//Wait for a worker
+                Worker w = workers.poll();
+                w.add
             }
             try{
                 Thread.sleep(20);
