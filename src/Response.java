@@ -1,12 +1,13 @@
 public class Response extends Message {
-    public Object returnValue;
+    public int returnValue;
 
-    public int getId(){
-        return this.id;
+    public Response(int idNum, String functionName, int returnValue) {
+        super(idNum, functionName);
+        this.returnValue = returnValue;
     }
-    public String getFname(){
-        return this.fname;
+
+    public int getResponse(){
+        return returnValue;
     }
-    public Object getResponce(){ return this.returnValue; }
 
 }

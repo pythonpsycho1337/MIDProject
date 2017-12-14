@@ -3,7 +3,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 
 
-public class InputModule {
+public class InputModule implements Runnable{
 
     public void inputfile() {
         File file = new File(""); //Enter name of file here
@@ -22,7 +22,10 @@ public class InputModule {
     private int maxClients  = 20;
     public InputModule(Master mRef){
         masterRef = mRef;
-        Client myClient = new Client(masterRef,1);
     }
 
+    public void run(){
+        Client client = new Client(masterRef);
+        client.run();
+    }
 }

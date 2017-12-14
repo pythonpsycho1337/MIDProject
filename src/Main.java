@@ -1,7 +1,8 @@
 public class Main {
     public static void main(String[] args){
-        Master masterRef = new Master();
-        InputModule input = new InputModule(masterRef);
-
+        Master master = new Master();
+        InputModule inputModule = new InputModule(master);
+        new Thread(master).start();
+        new Thread(inputModule).start();
     }
 }
