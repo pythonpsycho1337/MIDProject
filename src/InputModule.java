@@ -29,7 +29,7 @@ public class InputModule implements Runnable{
             Scanner scfile = new Scanner(file);
             while (scfile.hasNextLine()) {
                 String[] inputline = scfile.nextLine().split(",");
-                System.out.println(inputline[1]);
+                //System.out.println(inputline[1]);
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();

@@ -1,8 +1,12 @@
+import java.util.concurrent.ConcurrentLinkedQueue;
+
+import static java.lang.Thread.sleep;
+
 public class Worker implements Runnable{
     private Master masterRef;
     private int id;
-    private Request currentRequest;
     private int workDone = 0;
+    private Request currentRequest;//queue only used because of concurrency handling. Length will never be more than 1
 
     public Worker(Master mRef, int idNum){
         masterRef = mRef;
@@ -24,15 +28,30 @@ public class Worker implements Runnable{
 
     @Override
     public void run(){
+        masterRef.add_worker(this);
+        waitForRequest();
+    }
 
+    public void waitForRequest(){
+        while(true){
+            while(currentRequest == null){
+                try {
+                    Thread.sleep(0,10);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            Response R = execute_work(currentRequest);
+            currentRequest = null;
+            System.out.println("Response ready");
+            masterRef.add_worker(this);
+        }
     }
 
     public void handle_request(Request request){
         //Called from the master to ask the worker to handle a request
         currentRequest = request;
-        Response R = execute_work(request);
-        masterRef.add_worker(this);
-        System.out.println("[Worker"+String.valueOf(id)+"] Received request "+String.valueOf(request.getId()));
+        System.out.println("[Worker"+String.valueOf(id)+"] Received request of client "+String.valueOf(request.getId()));
     }
 
     private Response execute_work(Request request){
@@ -50,7 +69,7 @@ public class Worker implements Runnable{
             System.out.println("[Worker"+String.valueOf(this.id)+"] WARNING function name not recognized, dropping request");
         }
 
-        return new Response(request.getId(),request.getFname(),0);//0 meaning ok!
+        return new Response(id,request.getId(),request.getFname(),0);//0 meaning ok!
     }
 
     //-----Client Callable Functions-----
@@ -72,7 +91,7 @@ public class Worker implements Runnable{
 
     private void functionCall(int cost){
         try {
-            Thread.sleep(cost);
+            sleep(cost);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

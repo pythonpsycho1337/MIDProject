@@ -23,7 +23,7 @@ public class Client implements Runnable {
 
     @Override
     public void run(){
-        String [] functions = {"tellmenow", "countprimes", "oracle418"};
+        String [] functions = {"tellmenow", "countPrimes", "418Oracle"};
         Random random = new Random();
         int select;
 
@@ -39,7 +39,7 @@ public class Client implements Runnable {
         send_request(new Request(-1,null,null));//Send "end of requests" message to master
 
         Response answer = recieve_response();
-        System.out.printf("\nClient happy, answer:"+Integer.toString(answer.getResponse()));
+        System.out.printf("\nClient happy, answer:"+Integer.toString(answer.getReturnValue()));
     }
 
     private void send_request(Request req){

@@ -18,7 +18,7 @@ public class Master implements Runnable{
 
         for(int i = 0; i < MAXWORKERS; i++){
             Worker worker = new Worker(this,i+1);
-            workers.add(worker);
+            new Thread(worker).start();
             workerArray[i] = worker;
         }
     }
@@ -37,7 +37,13 @@ public class Master implements Runnable{
                     break;
                 }
 
-                while(workers.isEmpty());//Wait for a worker
+                while(workers.isEmpty()) {//Wait for a worker
+                    try {
+                        Thread.sleep(0,10);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                };
                 Worker w = workers.poll();
                 w.handle_request(r);
             }
@@ -47,6 +53,18 @@ public class Master implements Runnable{
                 e.printStackTrace();
             }
         }
+        boolean continueCheck = true;
+        while(continueCheck){
+            continueCheck = false;
+            for(int i = 0; i < this.MAXWORKERS; i++){
+                //System.out.println("Checking workers");
+                if (workerArray[i].getCurrentRequest() != null){
+                    continueCheck = true;
+                    break;
+                }
+            }
+        }
+        System.out.println("Generating statistics");
         generateStatistics();
     }
 
@@ -55,7 +73,6 @@ public class Master implements Runnable{
     }
 
     public void add_worker(Worker worker){
-        System.out.println("[Master] recieved worker:"+Integer.toString(worker.getId()));
         workers.add(worker);
     }
 
