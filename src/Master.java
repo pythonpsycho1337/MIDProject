@@ -20,7 +20,6 @@ public class Master implements Runnable{
             Worker worker = new Worker(this,i+1);
             workers.add(worker);
             workerArray[i] = worker;
-
         }
     }
 

@@ -14,22 +14,22 @@ public class InputModule implements Runnable{
     private Master masterRef;
     public InputModule(Master mRef){
         masterRef = mRef;
-        spawnClientsFromFile("../input/client_requests.txt");
+        spawnClientsFromFile("input/client_requests.txt");
     }
 
 
     public void spawnClientsFromFile(String fileName) {
         clients = new Client[NUMOFCLIENTS];
-        for(int i = 1;i <= NUMOFCLIENTS; i++){
-            clients[i] = new Client(masterRef);
+        for(int id = 1;id <= NUMOFCLIENTS; id++){
+            clients[id-1] = new Client(masterRef);
         }
 
         File file = new File(fileName); //Enter name of file here
         try {
             Scanner scfile = new Scanner(file);
             while (scfile.hasNextLine()) {
-                String inputline = scfile.nextLine();//.split(" ");
-                System.out.println(inputline);
+                String[] inputline = scfile.nextLine().split(",");
+                System.out.println(inputline[1]);
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();

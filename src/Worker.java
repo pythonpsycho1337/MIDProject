@@ -40,10 +40,10 @@ public class Worker implements Runnable{
         if (request.getFname().equals("tellmenow")){
             int returnValue = tellMeNow();
         }
-        else if(request.getFname().equals("countprimes")){
+        else if(request.getFname().equals("countPrimes")){
             int returnValue = countPrimes(10);
         }
-        else if(request.getFname().equals("oracle418")){
+        else if(request.getFname().equals("418Oracle")){
             int returnValue = oracle418();
         }
         else{
