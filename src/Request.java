@@ -1,13 +1,13 @@
 import java.lang.reflect.Array;
 
 public class Request extends Message{
-    public Object[] args;
+    public int[] args;
 
-    public Object[] getArgs(){
+    public int[] getArgs(){
         return args;
     }
 
-    public Request(int idNum, String functionName, Object[] args) {
+    public Request(int idNum, String functionName, int[] args) {
         super(idNum, functionName);
         this.args = args;
     }

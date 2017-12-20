@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Random;
@@ -10,6 +11,8 @@ public class Client implements Runnable {
     //  A class simulating requests from a real client to a server
     private Master masterRef;
     private ConcurrentLinkedQueue<Response> responses;
+    private ConcurrentLinkedQueue<Request> requests = new ConcurrentLinkedQueue<Request>();
+
 
     public Client(Master mRef){
         //public Client(Master mRef)
@@ -26,7 +29,7 @@ public class Client implements Runnable {
         String [] functions = {"tellmenow", "countPrimes", "418Oracle"};
         Random random = new Random();
         int select;
-
+        /*
         for(int i = 1;i <= 100; i++){
             select = random.nextInt(functions.length);
             send_request(new Request(i,functions[select],null));
@@ -36,7 +39,8 @@ public class Client implements Runnable {
                 e.printStackTrace();
             }
         }
-        send_request(new Request(-1,null,null));//Send "end of requests" message to master
+        */
+        //send_request(new Request(-1,null,null));//Send "end of requests" message to master
 
         Response answer = recieve_response();
         System.out.printf("\nClient happy, answer:"+Integer.toString(answer.getReturnValue()));
@@ -45,6 +49,10 @@ public class Client implements Runnable {
     private void send_request(Request req){
         System.out.println("[Client] Sending request "+String.valueOf(req.getId()));
         masterRef.add_request(req);
+    }
+
+    public void add(Request r){
+        requests.add(r);
     }
 
     private Response recieve_response() {

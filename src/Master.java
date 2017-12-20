@@ -86,9 +86,16 @@ public class Master implements Runnable{
 
         System.out.println("Work distribution:");
         for(int i = 0; i < MAXWORKERS;i++){//Calculate percentages
-            float workDone = workerArray[i].getWorkDone();
-            int percentage = round(100*workDone/costSum);
+            double workDone = workerArray[i].getWorkDone();
+            double percentage = round(10000*100*workDone/costSum)/10000.0;
             System.out.println("\tWorker "+String.valueOf(i)+":"+String.valueOf(percentage)+"%");
+            System.out.println("\t\tWork done:["+workerArray[i].getExecutedFunctionCalls()+"]");
+            System.out.println("\t\tCalls to tellmenow:"+String.valueOf(workerArray[i].getCallsTellmenow()));
+            System.out.println("\t\tCalls to countPrimes:"+String.valueOf(workerArray[i].getCallsCountPrimes()));
+            System.out.println("\t\tCalls to oracle418:"+String.valueOf(workerArray[i].getCallsOracle418()));
+            System.out.println();
         }
+
+        System.out.println("\n------------End of Statstics------------");
     }
 }
