@@ -6,10 +6,17 @@ import java.util.concurrent.ConcurrentLinkedQueue; //See: https://docs.oracle.co
 import static java.lang.Thread.sleep;
 
 public class Client implements Runnable {
+    //Client
+    //  A class simulating requests from a real client to a server
     private Master masterRef;
     private ConcurrentLinkedQueue<Response> responses;
 
     public Client(Master mRef){
+        //public Client(Master mRef)
+        //      Desctiption:
+        //          Constructs the client object
+        //      Params:
+        //          mREF: Reference to master class
         masterRef = mRef;
         responses = new ConcurrentLinkedQueue<Response>();
     }
@@ -29,7 +36,7 @@ public class Client implements Runnable {
                 e.printStackTrace();
             }
         }
-        send_request(new Request(-1,null,null));//Send end of request message to master
+        send_request(new Request(-1,null,null));//Send "end of requests" message to master
 
         Response answer = recieve_response();
         System.out.printf("\nClient happy, answer:"+Integer.toString(answer.getResponse()));

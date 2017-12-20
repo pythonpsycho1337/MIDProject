@@ -30,12 +30,13 @@ public class Worker implements Runnable{
     public void handle_request(Request request){
         //Called from the master to ask the worker to handle a request
         currentRequest = request;
-        execute_work(request);
+        Response R = execute_work(request);
         masterRef.add_worker(this);
         System.out.println("[Worker"+String.valueOf(id)+"] Received request "+String.valueOf(request.getId()));
     }
 
     private Response execute_work(Request request){
+        //Execute the client requested function call
         if (request.getFname().equals("tellmenow")){
             int returnValue = tellMeNow();
         }
@@ -49,23 +50,23 @@ public class Worker implements Runnable{
             System.out.println("[Worker"+String.valueOf(this.id)+"] WARNING function name not recognized, dropping request");
         }
 
-        return new Response(request.getId(),request.getFname(),1337);
+        return new Response(request.getId(),request.getFname(),0);//0 meaning ok!
     }
 
-    //-----Functions-----
+    //-----Client Callable Functions-----
     private int tellMeNow(){
-        functionCall(1);
+        functionCall(5);
         return 0;
     }
 
 
     private int countPrimes(int n){
-        functionCall(5);
+        functionCall(n*10);
         return 0;
     }
 
     private int oracle418(){
-        functionCall(10);
+        functionCall(200);
         return 0;
     }
 
