@@ -16,10 +16,7 @@ public class InputModule implements Runnable{
     public final String INPUTFILE = "input/client_requests.txt";
     public InputModule(Master mRef){
         masterRef = mRef;
-        createRequestsFromFile(INPUTFILE);
     }
-
-
 
     public void createRequestsFromFile(String fileName) {
         File file = new File(fileName);
@@ -45,7 +42,6 @@ public class InputModule implements Runnable{
     }
 
     public void run(){
-        Client client = new Client(masterRef);
-        client.run();
+        createRequestsFromFile(INPUTFILE);
     }
 }

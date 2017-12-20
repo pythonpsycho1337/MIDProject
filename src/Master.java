@@ -8,10 +8,11 @@ import java.util.concurrent.ConcurrentLinkedQueue; //See: https://docs.oracle.co
 import static java.lang.Math.round;
 
 public class Master implements Runnable{
-    private ConcurrentLinkedQueue<Request> requests;
-    private ConcurrentLinkedQueue<Worker> workers;
-    private Worker[] workerArray;
-    private final int MAXWORKERS = 10;
+    //Keeps track of workers
+    private ConcurrentLinkedQueue<Request> requests;//Queue of requests to handle
+    private ConcurrentLinkedQueue<Worker> workers;//Queue of available workers
+    private Worker[] workerArray;//Array of all the workers
+    private final int MAXWORKERS = 10;//Maximum amount of workers
 
     public Master(){
         System.out.println("Master initialized");
@@ -28,6 +29,7 @@ public class Master implements Runnable{
 
     @Override
     public void run(){
+        //Distribute requests to workers
         boolean running = true;
         System.out.println("[Master] Initialized");
         while(running){
@@ -72,19 +74,23 @@ public class Master implements Runnable{
     }
 
     public void add_request(Request request){
+        //Add a request to the master's request queue
         requests.add(request);
     }
 
     public void add_worker(Worker worker){
+        //Add a worker to the master's worker queue
         workers.add(worker);
     }
 
     public void generateStatistics(){
+        //Generate the statistics of the run and
+        //output them to the console and to [PROJECT ROOT]/output.txt
         String out = "";
         out += "\n\n\n---------------Statstics---------------\n";
 
         float costSum = 0;
-        for(int i = 0; i < MAXWORKERS;i++){//Calculate costSum
+        for(int i = 0; i < MAXWORKERS;i++){//Calculate costSum (Cost summary)
             costSum += workerArray[i].getWorkDone();
         }
 

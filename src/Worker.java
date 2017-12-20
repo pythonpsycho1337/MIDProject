@@ -6,14 +6,15 @@ public class Worker implements Runnable{
     //Essential variables
     private Master masterRef;
     private int id;
-    private int workDone = 0;
     private ConcurrentLinkedQueue<Request> currentRequest;//By design the queue will never have more than 1 element. It is used
+    //for the concurrency protection
 
     //Logging variables
-    private int callsTellmenow = 0;
-    private int callsCountPrimes = 0;
-    private int callsOracle418 = 0;
-    private String executedFunctionCalls = "";
+    private int workDone = 0;//Keeps track of milliseconds worked
+    private String executedFunctionCalls = "";//Keep track of the function calls that has been done in order
+    private int callsTellmenow = 0;//Calls to tell me now
+    private int callsCountPrimes = 0;//Calls to countPrimes
+    private int callsOracle418 = 0;//Calls to Oracle418
 
     public Worker(Master mRef, int idNum){
         masterRef = mRef;
@@ -22,16 +23,16 @@ public class Worker implements Runnable{
         System.out.println("Worker "+String.valueOf(id)+" initialized");
     }
 
-    public int getId(){
-        return id;
-    }
-
     public Request getCurrentRequest(){
         return currentRequest.peek();
     }
 
     public int getWorkDone(){
         return workDone;
+    }
+
+    public String getExecutedFunctionCalls(){
+        return executedFunctionCalls;
     }
 
     public int getCallsTellmenow() {
@@ -46,10 +47,6 @@ public class Worker implements Runnable{
         return callsOracle418;
     }
 
-    public String getExecutedFunctionCalls(){
-        return executedFunctionCalls;
-    }
-
     @Override
     public void run(){
         masterRef.add_worker(this);
@@ -58,14 +55,14 @@ public class Worker implements Runnable{
 
     public void waitForRequest(){
         while(true){
-            while(currentRequest.peek() == null){
+            while(currentRequest.peek() == null){//Polling
                 try {
                     Thread.sleep(0,10);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
-            Response R = execute_work(currentRequest.peek());
+            execute_work(currentRequest.peek());//Response ignored for now..
             currentRequest.remove();
             masterRef.add_worker(this);
         }
