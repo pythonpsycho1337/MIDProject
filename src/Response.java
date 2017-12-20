@@ -1,4 +1,5 @@
 public class Response extends Message {
+    //NOT IN USE, IGNORE
     private int returnValue;
     private int workerId;
 

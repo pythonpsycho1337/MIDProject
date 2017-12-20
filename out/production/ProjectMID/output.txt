@@ -1,0 +1,67 @@
+
+
+
+---------------Statstics---------------
+Work distribution:
+	Worker 0:9.999%
+		Work done:[t t o c10 c10 o c10 o o c10 t o c10 o t t o t t o o t t c10 t c10 t c10 c10 t t t t o c10 t o c10 o t t o c10 t c10 o t o c10 o c10 o c10 ]
+		Calls to tellmenow:20
+		Calls to countPrimes:16
+		Calls to oracle418:17
+
+	Worker 1:10.1755%
+		Work done:[o o t o c10 o o o o t t t o c10 o t t t c10 o c10 t c10 c10 c10 t o c10 o t o t t t o t o t c10 o c10 t c10 o o t c10 c10 t o ]
+		Calls to tellmenow:18
+		Calls to countPrimes:13
+		Calls to oracle418:19
+
+	Worker 2:10.1363%
+		Work done:[c10 c10 t c10 c10 t c10 c10 o t t t t o c10 o t o t c10 c10 t o c10 o o t t t c10 c10 c10 o o o t o c10 o c10 o c10 o o o c10 t o ]
+		Calls to tellmenow:14
+		Calls to countPrimes:17
+		Calls to oracle418:17
+
+	Worker 3:9.8912%
+		Work done:[o o c10 o c10 t c10 c10 o c10 c10 t c10 c10 o c10 o t t o c10 o c10 c10 t c10 o c10 o o c10 t o c10 c10 c10 c10 o t o o t t c10 ]
+		Calls to tellmenow:9
+		Calls to countPrimes:20
+		Calls to oracle418:15
+
+	Worker 4:10.1461%
+		Work done:[c10 c10 c10 o o t t o o c10 o o o o o t o c10 t c10 t t c10 c10 c10 c10 t c10 t t c10 t t o c10 t o o t o t c10 c10 o t o o o ]
+		Calls to tellmenow:15
+		Calls to countPrimes:15
+		Calls to oracle418:18
+
+	Worker 5:9.7736%
+		Work done:[c10 c10 c10 c10 t c10 o t c10 t c10 t t c10 c10 t t t o o c10 o o c10 c10 t o t c10 o o o c10 t c10 c10 t t t o c10 o o c10 t t t o c10 o c10 c10 ]
+		Calls to tellmenow:17
+		Calls to countPrimes:21
+		Calls to oracle418:14
+
+	Worker 6:10.1853%
+		Work done:[o o t c10 c10 t c10 o o t t t t t o t o o o o o t o o c10 t t c10 t c10 o c10 t c10 o c10 t o t c10 c10 t o t o t t c10 c10 o o ]
+		Calls to tellmenow:19
+		Calls to countPrimes:13
+		Calls to oracle418:19
+
+	Worker 7:10.1265%
+		Work done:[o c10 o o t o o o t t o c10 t c10 o t o c10 o c10 o c10 t t o c10 c10 o t o o c10 c10 c10 t c10 t c10 o o t t t o c10 c10 ]
+		Calls to tellmenow:13
+		Calls to countPrimes:15
+		Calls to oracle418:18
+
+	Worker 8:9.9206%
+		Work done:[c10 c10 o o t c10 c10 t o t c10 c10 t t o o t c10 c10 c10 o c10 t t o o c10 c10 c10 t c10 c10 t o c10 o c10 t o c10 c10 c10 o o o t c10 c10 ]
+		Calls to tellmenow:12
+		Calls to countPrimes:22
+		Calls to oracle418:14
+
+	Worker 9:9.6461%
+		Work done:[c10 o o c10 t c10 t t t t c10 c10 t c10 c10 t t t t t c10 o t t c10 c10 o o o t c10 t t c10 o c10 c10 t o c10 o o c10 t t o t c10 c10 t c10 c10 c10 t c10 t t c10 o c10 ]
+		Calls to tellmenow:24
+		Calls to countPrimes:24
+		Calls to oracle418:12
+
+
+------------End of Statstics------------

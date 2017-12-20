@@ -1,3 +1,6 @@
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.concurrent.ConcurrentLinkedQueue; //See: https://docs.oracle.com/javase/7/docs/api/java/util/concurrent/ConcurrentLinkedQueue.html
@@ -26,7 +29,7 @@ public class Master implements Runnable{
     @Override
     public void run(){
         boolean running = true;
-        System.out.println("Running master");
+        System.out.println("[Master] Initialized");
         while(running){
             while(!requests.isEmpty()){
                 Request r = requests.poll();
@@ -77,25 +80,40 @@ public class Master implements Runnable{
     }
 
     public void generateStatistics(){
-        System.out.println("\n\n\n---------------Statstics---------------");
+        String out = "";
+        out += "\n\n\n---------------Statstics---------------\n";
 
         float costSum = 0;
         for(int i = 0; i < MAXWORKERS;i++){//Calculate costSum
             costSum += workerArray[i].getWorkDone();
         }
 
-        System.out.println("Work distribution:");
+        out += "Work distribution:\n";
         for(int i = 0; i < MAXWORKERS;i++){//Calculate percentages
             double workDone = workerArray[i].getWorkDone();
             double percentage = round(10000*100*workDone/costSum)/10000.0;
-            System.out.println("\tWorker "+String.valueOf(i)+":"+String.valueOf(percentage)+"%");
-            System.out.println("\t\tWork done:["+workerArray[i].getExecutedFunctionCalls()+"]");
-            System.out.println("\t\tCalls to tellmenow:"+String.valueOf(workerArray[i].getCallsTellmenow()));
-            System.out.println("\t\tCalls to countPrimes:"+String.valueOf(workerArray[i].getCallsCountPrimes()));
-            System.out.println("\t\tCalls to oracle418:"+String.valueOf(workerArray[i].getCallsOracle418()));
-            System.out.println();
+            out += "\tWorker "+String.valueOf(i)+":"+String.valueOf(percentage)+"%\n";
+            out += "\t\tWork done:["+workerArray[i].getExecutedFunctionCalls()+"]\n";
+            out += "\t\tCalls to tellmenow:"+String.valueOf(workerArray[i].getCallsTellmenow())+"\n";
+            out += "\t\tCalls to countPrimes:"+String.valueOf(workerArray[i].getCallsCountPrimes())+"\n";
+            out += "\t\tCalls to oracle418:"+String.valueOf(workerArray[i].getCallsOracle418())+"\n";
+            out += "\n";
         }
+        out += "\n------------End of Statstics------------";
 
-        System.out.println("\n------------End of Statstics------------");
+        //Print statistics to console
+        System.out.print(out);
+
+        //output statistics to file
+        PrintWriter writer = null;
+        try {
+            writer = new PrintWriter("output.txt", "UTF-8");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        writer.print(out);
+        writer.close();
     }
 }

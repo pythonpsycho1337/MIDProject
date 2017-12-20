@@ -66,7 +66,6 @@ public class Worker implements Runnable{
                 }
             }
             Response R = execute_work(currentRequest.peek());
-            System.out.println("Response ready");
             currentRequest.remove();
             masterRef.add_worker(this);
         }
@@ -84,7 +83,7 @@ public class Worker implements Runnable{
             int returnValue = tellMeNow();
         }
         else if(request.getFname().equals("countPrimes")){
-            int returnValue = countPrimes(10);
+            int returnValue = countPrimes(request.getArgs()[0]);
         }
         else if(request.getFname().equals("418Oracle")){
             int returnValue = oracle418();
@@ -99,7 +98,7 @@ public class Worker implements Runnable{
     //-----Client Callable Functions-----
     private int tellMeNow(){
         functionCall(5);
-        executedFunctionCalls += "t";
+        executedFunctionCalls += "t ";
         callsTellmenow += 1;
         return 0;
     }
@@ -107,14 +106,14 @@ public class Worker implements Runnable{
 
     private int countPrimes(int n){
         functionCall(n*10);
-        executedFunctionCalls += "c"+String.valueOf(n);
+        executedFunctionCalls += "c"+String.valueOf(n)+" ";
         callsCountPrimes += 1;
         return 0;
     }
 
     private int oracle418(){
         functionCall(200);
-        executedFunctionCalls += "o";
+        executedFunctionCalls += "o ";
         callsOracle418 += 1;
         return 0;
     }
